@@ -7,11 +7,21 @@ public class Practice {
 
         Node ryan = new Node('s', null);
         head.next = ryan;
-        ryan.next = new Node('t', null);
-        ryan.next.next = new Node('x', null);
+        ryan.next = new Node('k', null);
+        ryan.next.next = new Node('t', null);
 
         // System.out.println(head.next.next.value);
-        printList(head);
+        // Expected result: true
+        System.out.println(contains(head, 'x'));
+
+        // Expected result: false
+        System.out.println(contains(head, 'e'));
+
+        // Expected result: 't'
+        System.out.println(remove(head, 't'));
+
+        // Expected result: '\0'
+        System.out.println(remove(head, 't'));
     }
 
     public static void printList(Node head) {
@@ -20,5 +30,35 @@ public class Practice {
             System.out.println(current.value);
             current = current.next;
         }
+    }
+
+    public static boolean contains (Node start, Character toFind) {
+        Node curr = start;
+        while (curr != null) {
+            if (curr.value == toFind) {
+                return true;
+            }
+            curr = curr.next;
+        }
+        return false;
+    }
+
+
+    public static Character remove(Node head, char toRemove) {
+        Node current = head;
+
+        while (current.next != null) {
+            // Check if the next value is the one to remove
+            if (current.next.value == toRemove) {
+                // Assign to next next pointer
+                current.next = current.next.next;
+
+                // Return, value has been removed
+                return toRemove;
+            }
+
+            current = current.next;
+        }
+        return '\0';
     }
 }
