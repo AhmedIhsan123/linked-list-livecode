@@ -1,32 +1,72 @@
-public class MyLL {
-    private class Node {
-        public Character value;
-        public Node next;
+public class MyLL<T> {
+    private class Node<E> {
+        public E value;
+        public Node<E> next;
+        public Node<E> prev;
 
-        public Node (Character value, Node next) {
+        public Node (E value, Node<E> next) {
             this.value = value;
             this.next = next;
+            prev = null;
         }
     }
 
-    private Node head;
+    private Node<T> head;
+    private Node<T> tail;
 
     public MyLL() {
         head = null;
+        tail = null;
     }
 
     public void printList() {
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             System.out.println(current.value);
+            if (!(current.prev == null)) {
+                System.out.println("Prev: " + current.prev.value);
+            }
             current = current.next;
         }
     }
 
-    public boolean contains (Character toFind) {
-        Node curr = head;
+    public void printBackwards() {
+        Node<T> curr = head;
+        while (curr.next != null) {
+            curr = curr.next;
+        }
         while (curr != null) {
-            if (curr.value == toFind) {
+            System.out.println(curr.value);
+            curr = curr.prev;
+        }
+    }
+
+    public void addToBack(T toAdd) {
+        Node<T> newNode = new Node<>(toAdd, null);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+            return;
+        } else {
+            Node<T> curr = head;
+            while (curr.next != null) {
+                curr = curr.next;
+            }
+            newNode.prev = curr;
+            curr.next = newNode;
+            tail = newNode;
+            return;
+        }
+    }
+
+    public void printTail () {
+        System.out.println(tail.value);
+    }
+
+    public boolean contains (T toFind) {
+        Node<T> curr = head;
+        while (curr != null) {
+            if (curr.value.equals(toFind)) {
                 return true;
             }
             curr = curr.next;
@@ -35,16 +75,25 @@ public class MyLL {
     }
 
 
-    public Character remove(char toRemove) {
+    public T remove(T toRemove) {
         if (head == null) {
-            return '\n';
+            return null;
         }
 
-        if (head.value == toRemove) {
+        if (head.value.equals(toRemove)) {
             head = head.next;
+            return null;
+        }
+
+        if (tail.value == toRemove) {
+            if (tail.prev == null) {
+                tail = tail.prev;
+                tail = null;
+                return  null;
+            }
         }
         
-        Node current = head;
+        Node<T> current = head;
 
         while (current.next != null) {
             // Check if the next value is the one to remove
@@ -58,6 +107,6 @@ public class MyLL {
 
             current = current.next;
         }
-        return '\0';
+        return null;
     }
 }

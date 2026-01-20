@@ -22,6 +22,26 @@ public class Practice {
 
         // Expected result: '\0'
         System.out.println(remove(head, 't'));
+
+        MyLL<Character> list = new MyLL<>();
+        list.addToBack('x');
+        list.addToBack('m');
+        list.addToBack('v');
+        list.addToBack('q');
+        
+        list.printList();
+
+        MyLL<Integer> intlist = new MyLL<>();
+
+        intlist.addToBack(7);
+        intlist.addToBack(11);
+
+        intlist.printTail();
+        intlist.remove(11);
+        intlist.printTail();
+        intlist.printList();
+        intlist.remove(7);
+
     }
 
     public static void printList(Node head) {
